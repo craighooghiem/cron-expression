@@ -269,8 +269,10 @@ class CronExpression
      *
      * @return bool Returns TRUE if the cron is valid or FALSE if not
      */
-    public function isValid($expression = null, FieldFactory $fieldFactory = null)
+    public function isValid($expression = null)
     {
+        $fieldFactory = new FieldFactory();
+
         $cronParts = explode(' ', $expression);
         if (count($cronParts) < 5) {
             return false;
