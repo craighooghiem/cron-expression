@@ -267,16 +267,16 @@ class CronExpression
      *      @daily - Run once a day, midnight - 0 0 * * *
      *      @hourly - Run once an hour, first minute - 0 * * * *
      *
-     * @return bool Returns TRUE if the cron is due to run or FALSE if not
+     * @return bool Returns TRUE if the cron is valid or FALSE if not
      */
-    public function isValid($expression = null)
+    public function isValid($expression = null, FieldFactory $fieldFactory = null)
     {
-        $this->cronParts = explode(' ', $expression);
-        if (count($this->cronParts) < 5) {
+        $cronParts = explode(' ', $expression);
+        if (count($cronParts) < 5) {
             return false;
         }
 
-        foreach ($this->cronParts as $position => $part) {
+        foreach ($cronParts as $position => $part) {
             if (!$this->fieldFactory->getField($position)->validate($part)) {
                 return false;
             }
