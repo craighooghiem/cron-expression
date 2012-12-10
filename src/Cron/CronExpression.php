@@ -254,6 +254,40 @@ class CronExpression
     }
 
     /**
+     * Determine if the cron string is actually a valid string or not 
+     * (helps to avoid issues in the future when trying to run them)
+     *
+     * @param string $expression The CRON expression to create.  There are
+     *      several special predefined values which can be used to substitute the
+     *      CRON expression:
+     *
+     *      @yearly, @annually) - Run once a year, midnight, Jan. 1 - 0 0 1 1 *
+     *      @monthly - Run once a month, midnight, first of month - 0 0 1 * *
+     *      @weekly - Run once a week, midnight on Sun - 0 0 * * 0
+     *      @daily - Run once a day, midnight - 0 0 * * *
+     *      @hourly - Run once an hour, first minute - 0 * * * *
+     *
+     * @return bool Returns TRUE if the cron is due to run or FALSE if not
+     */
+    public function isValid($expression = null)
+    {
+        $this->cronParts = explode(' ', $value);
+        if (count($this->cronParts) < 5) {
+            throw new InvalidArgumentException(
+                $value . ' is not a valid CRON expression'
+            );
+        }
+
+        foreach ($this->cronParts as $position => $part) {
+            if (!$this->fieldFactory->getField($position)->validate($part)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
      * Get the next or previous run date of the expression relative to a date
      *
      * @param string|DateTime $currentTime (optional) Relative calculation date

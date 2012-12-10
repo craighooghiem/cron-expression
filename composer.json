@@ -1,7 +1,7 @@
 {
-    "name": "mtdowling/cron-expression",
+    "name": "craighooghiem/cron-expression",
     "type": "library",
-    "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
+    "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is valid or due to run",
     "keywords": ["cron", "schedule"],
     "license": "MIT",
     "authors": [{
