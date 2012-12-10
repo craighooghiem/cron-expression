@@ -271,11 +271,9 @@ class CronExpression
      */
     public function isValid($expression = null)
     {
-        $this->cronParts = explode(' ', $value);
+        $this->cronParts = explode(' ', $expression);
         if (count($this->cronParts) < 5) {
-            throw new InvalidArgumentException(
-                $value . ' is not a valid CRON expression'
-            );
+            return false;
         }
 
         foreach ($this->cronParts as $position => $part) {
