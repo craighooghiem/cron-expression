@@ -277,7 +277,7 @@ class CronExpression
         }
 
         foreach ($cronParts as $position => $part) {
-            if (!$this->fieldFactory->getField($position)->validate($part)) {
+            if (!$fieldFactory->getField($position)->validate($part)) {
                 return false;
             }
         }
